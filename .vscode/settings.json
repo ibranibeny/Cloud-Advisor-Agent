@@ -1,0 +1,20 @@
+{
+    "chat.agent.enabled": true,
+    "chat.agent.maxRequests": 30,
+    "markdown.validate.enabled": true,
+    "files.associations": {
+        "*.agent.md": "markdown"
+    },
+    "chat.promptFilesRecommendations": {
+        "speckit.constitution": true,
+        "speckit.specify": true,
+        "speckit.plan": true,
+        "speckit.tasks": true,
+        "speckit.implement": true
+    },
+    "chat.tools.terminal.autoApprove": {
+        ".specify/scripts/bash/": true,
+        ".specify/scripts/powershell/": true
+    }
+}
+

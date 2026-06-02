@@ -1,0 +1,32 @@
+{
+  "servers": {
+    "azure": {
+      "command": "npx",
+      "args": ["-y", "@azure/mcp@latest"]
+    },
+    "microsoft-lea": {
+      "command": "npx",
+      "args": ["-y", "@anthropic/microsoft-docs-mcp@latest"]
+    },
+    "excel-mcp": {
+      "command": "npx",
+      "args": ["-y", "excel-mcp-server@latest"]
+    },
+    "microsoft_mar": {
+      "command": "npx",
+      "args": ["-y", "@microsoft/markitdown-mcp@latest"]
+    },
+    "aws": {
+      "command": "npx",
+      "args": ["-y", "@aws/mcp@latest"]
+    },
+    "gcp": {
+      "command": "npx",
+      "args": ["-y", "@google-cloud/mcp@latest"]
+    },
+    "fabric": {
+      "command": "npx",
+      "args": ["-y", "@microsoft/fabric-mcp@latest"]
+    }
+  }
+}
