@@ -1,3 +1,10 @@
+---
+layout: default
+title: Deployment Guide
+nav_order: 5
+permalink: /deploy/
+---
+
 # Deployment Guide — Microsoft Cloud Advisor Skill
 
 ## Installation Methods

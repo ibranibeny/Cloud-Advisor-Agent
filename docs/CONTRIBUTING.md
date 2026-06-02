@@ -1,3 +1,10 @@
+---
+layout: default
+title: Contributing
+nav_order: 6
+permalink: /contributing/
+---
+
 # Contributing to Microsoft Cloud Advisor
 
 ## How to Extend the Skill
