@@ -2,12 +2,37 @@
 
 A comprehensive **GitHub Copilot custom agent and skill** that transforms Copilot into a Microsoft Cloud & Azure expert advisor. It leverages MCP (Model Context Protocol) tools for live Azure context, Microsoft Learn documentation, Excel workbook generation, document processing, and presentation-ready markdown.
 
-## Clone
+## Install
+
+Scaffold the agent files directly into your current folder with `npx` — no `git clone` or `cd` required:
 
 ```bash
-git clone https://github.com/ibranibeny/Cloud-Advisor-Agent.git
-cd Cloud-Advisor-Agent
+npx degit ibranibeny/Cloud-Advisor-Agent
 ```
+
+## Getting Started
+
+From zero to your first answer in four steps:
+
+1. **Scaffold the files** into your workspace root:
+   ```bash
+   npx degit ibranibeny/Cloud-Advisor-Agent
+   ```
+   This drops `.github/agents/`, `.vscode/mcp.json`, and the skill files into the current folder.
+
+2. **Install the MCP servers** (one-time, see [Install MCP Servers](#install-mcp-servers-npx)):
+   ```bash
+   npx -y @azure/mcp@latest
+   ```
+
+3. **Reload VS Code** so it picks up the agent and MCP config: `Ctrl+Shift+P` → **Developer: Reload Window**.
+
+4. **Open Copilot Chat** (agent mode) and invoke the advisor:
+   ```
+   @cloud-advisor Design a hub-spoke network for my Azure landing zone
+   ```
+
+> Tip: append an L-level (`L100`–`L400`) to any prompt to control depth — `L100` for executive summaries, `L400` for detailed architecture specs.
 
 ## Capabilities
 
@@ -63,7 +88,7 @@ cp .vscode/settings.json <your-repo>/.vscode/settings.json
 
 Then invoke the agent directly in Copilot Chat:
 ```
-@microsoft-cloud-advisor Design a hub-spoke network for my Azure landing zone
+@cloud-advisor Design a hub-spoke network for my Azure landing zone
 ```
 
 ### Option 2: Skill Mode (skill procedure without agent wrapper)
@@ -84,29 +109,29 @@ cp -r skills/microsoft-cloud-advisor <your-repo>/.github/skills/microsoft-cloud-
 
 ## Usage
 
-In VS Code Copilot Chat, invoke the agent with `@microsoft-cloud-advisor`. The agent uses L-levels (L100–L400) for response depth:
+In VS Code Copilot Chat, invoke the agent with `@cloud-advisor`. The agent uses L-levels (L100–L400) for response depth:
 
 ```
 # Architecture advisory (L200 default)
-@microsoft-cloud-advisor Design an Azure architecture for a multi-region e-commerce platform
+@cloud-advisor Design an Azure architecture for a multi-region e-commerce platform
 
 # Migration planning with 6R strategy
-@microsoft-cloud-advisor How do I migrate my on-prem SQL Server 2019 to Azure?
+@cloud-advisor How do I migrate my on-prem SQL Server 2019 to Azure?
 
 # Cost calculator (generates Excel workbook)
-@microsoft-cloud-advisor Generate an Azure pricing calculator for a 3-tier web app with AKS
+@cloud-advisor Generate an Azure pricing calculator for a 3-tier web app with AKS
 
 # Multi-cloud comparison
-@microsoft-cloud-advisor Compare Azure Container Apps vs AWS Fargate vs GCP Cloud Run
+@cloud-advisor Compare Azure Container Apps vs AWS Fargate vs GCP Cloud Run
 
 # Document processing
-[Attach a .docx or .pptx file] @microsoft-cloud-advisor Analyze this architecture document
+[Attach a .docx or .pptx file] @cloud-advisor Analyze this architecture document
 
 # Presentation generation
-@microsoft-cloud-advisor Create a 10-slide executive presentation on our Azure migration at L100
+@cloud-advisor Create a 10-slide executive presentation on our Azure migration at L100
 
 # Data platform advisory
-@microsoft-cloud-advisor Recommend a data platform for real-time IoT analytics with Fabric
+@cloud-advisor Recommend a data platform for real-time IoT analytics with Fabric
 ```
 
 ## MCP Servers Required
