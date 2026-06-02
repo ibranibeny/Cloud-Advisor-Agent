@@ -1,6 +1,13 @@
-# Microsoft Cloud Advisor — VS Code Copilot Skill
+# Cloud Advisor Agent — Microsoft Cloud & Azure Advisory for Copilot
 
-A comprehensive **GitHub Copilot custom skill** that transforms Copilot into a Microsoft Cloud & Azure expert advisor. It leverages MCP (Model Context Protocol) tools for live Azure context, Microsoft Learn documentation, Excel workbook generation, document processing, and presentation-ready markdown.
+A comprehensive **GitHub Copilot custom agent and skill** that transforms Copilot into a Microsoft Cloud & Azure expert advisor. It leverages MCP (Model Context Protocol) tools for live Azure context, Microsoft Learn documentation, Excel workbook generation, document processing, and presentation-ready markdown.
+
+## Clone
+
+```bash
+git clone https://github.com/ibranibeny/Cloud-Advisor-Agent.git
+cd Cloud-Advisor-Agent
+```
 
 ## Capabilities
 
