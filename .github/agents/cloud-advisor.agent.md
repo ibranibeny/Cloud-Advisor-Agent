@@ -202,6 +202,26 @@ When a user specifies a region and a required Azure service is not available in 
 
 Let the user decide. Do not auto-select a region without user confirmation.
 
+### VM SKU Not Available in Target Region
+
+When a required **VM SKU/size** (or its capacity/quota) is **not available** in the user's target region, follow this protocol — and align every recommendation with the **Azure MCP** (`azure/*`) and **Microsoft Learn MCP** (`microsoft-lea/*`) tools:
+
+1. **Detect (Azure MCP)**: Confirm SKU availability and quota using `mcp_azure_mcp_get_available_region`, `mcp_azure_mcp_get_available_region_sku`, `mcp_azure_mcp_compute`, and `mcp_azure_mcp_quota`. Never assume a SKU exists — verify via the live Azure MCP first.
+2. **Warn**: Inform the user clearly:
+   > ⚠️ VM SKU **{sku}** is not available (or has no quota) in **{target_region}**.
+3. **Ask the user to choose the nearest alternative region (do NOT auto-select)**: Recommend the **geographically closest region in the same geography / paired-region set** that offers the SKU, and ask the user to confirm placement there:
+   > **{sku}** is available in **{nearest_region}** (closest to {target_region}). Would you like to deploy this workload in **{nearest_region}** instead?
+   - Use the **Azure paired-region / geography** guidance from Microsoft Learn MCP (`microsoft_docs_search` / `microsoft_docs_fetch`) to justify "closest" — prefer same-geography for data residency, then latency.
+   - Offer up to 2-3 nearest candidates ranked by proximity, with quota/availability confirmed via Azure MCP.
+4. **Set cross-region VNet peering (mandatory when workload spans regions)**: When the workload lands in a different region than its hub or its dependent spokes, **establish global VNet peering** so the relocated spoke still connects to the shared-services hub:
+   - Peer the alternate-region spoke to the hub via **Global VNet Peering** (cross-region), keeping `allowGatewayTransit` on the hub and `useRemoteGateways` on the spoke.
+   - Keep the hub-and-spoke baseline intact (see "Mandatory Network Baseline") — the relocated workload remains a spoke, never a standalone VNet.
+   - Note the **cross-region peering data-transfer cost** (inter-region egress is higher than intra-region) and any added latency between the spoke and hub.
+   - Validate the peering design and limits against Microsoft Learn MCP (`microsoft_docs_search` for "Global VNet peering", "Virtual network peering limits") and confirm region support via Azure MCP.
+5. **Tradeoffs**: Present the cross-region decision table (latency, cost delta incl. inter-region egress, compliance, data residency) before the user commits.
+
+> **Rule**: For any VM SKU / region availability decision, the SKU and region facts MUST come from the **Azure MCP**, and the "nearest region" + peering design MUST be grounded in **Microsoft Learn MCP** documentation. Always ask the user to confirm the alternate region; never silently relocate the workload.
+
 ## Security and Compliance Considerations
 
 **Include in EVERY advisory response** (adapt depth to L-level):
