@@ -120,12 +120,23 @@ Architects enterprise Azure infrastructure end-to-end and generates deployable *
 
 ---
 
+## 10. Cost Management (Live Billing)
+
+Queries actual billed Azure spend, forecasts future costs, and finds optimization opportunities on **deployed** resources using the bundled Microsoft `azure-cost` skill (MIT). It calls the Cost Management Query and Forecast APIs and includes optimization workflows (orphaned-resource detection, VM rightsizing, Redis/AKS cost analysis, Azure Quick Review). Use `azure-cost` for live billing data; use `microsoft-cloud-advisor` with `azure/pricing` to estimate prices for new/proposed designs.
+
+```
+@cloud-advisor Show my Azure cost breakdown by service this month and forecast end-of-month spend
+```
+
+---
+
 ## Bundled Skills
 
 | Skill | Source | Use For |
 |-------|--------|---------|
 | **microsoft-cloud-advisor** | This repo | Advisory, cost calculators, multi-cloud comparison, WAF reviews, presentations |
 | **azure-enterprise-infra-planner** | [microsoft/azure-skills](https://github.com/microsoft/azure-skills/tree/main/skills/azure-enterprise-infra-planner) (MIT) | Architect/provision enterprise infrastructure and generate deployable Bicep or Terraform |
+| **azure-cost** | [microsoft/azure-skills](https://github.com/microsoft/azure-skills/tree/main/skills/azure-cost) (MIT) | Query historical Azure spend, forecast future costs, and optimize/reduce waste on deployed resources |
 
 ---
 

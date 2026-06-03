@@ -30,6 +30,7 @@ A GitHub Copilot custom agent (`@cloud-advisor`) that turns Copilot into a **Mic
 | 7 | **Presentation generation** | Slide-ready markdown formatted for PowerPoint |
 | 8 | **Multi-cloud comparison** | Azure ↔ AWS ↔ GCP service mapping |
 | 9 | **Enterprise infra planning + IaC** | Deployable Bicep or Terraform via the Microsoft `azure-enterprise-infra-planner` skill |
+| 10 | **Cost management (live billing)** | Query actual spend, forecast costs, and find savings via the Microsoft `azure-cost` skill |
 
 ---
 
@@ -39,8 +40,9 @@ A GitHub Copilot custom agent (`@cloud-advisor`) that turns Copilot into a **Mic
 |-------|--------|---------|
 | **microsoft-cloud-advisor** | This repo | Advisory, cost calculators, multi-cloud comparison, WAF reviews, presentations |
 | **azure-enterprise-infra-planner** | [microsoft/azure-skills](https://github.com/microsoft/azure-skills/tree/main/skills/azure-enterprise-infra-planner) (MIT) | Architect/provision enterprise infrastructure and generate deployable Bicep or Terraform via a 7-phase workflow |
+| **azure-cost** | [microsoft/azure-skills](https://github.com/microsoft/azure-skills/tree/main/skills/azure-cost) (MIT) | Query historical Azure spend, forecast future costs, and optimize/reduce waste on deployed resources |
 
-The agent uses `microsoft-cloud-advisor` for advisory, costing, and comparison, and escalates to `azure-enterprise-infra-planner` when you ask it to generate deployable IaC or a provisioning plan.
+The agent uses `microsoft-cloud-advisor` for advisory, costing, and comparison, escalates to `azure-enterprise-infra-planner` to generate deployable IaC, and uses `azure-cost` for live billing data, forecasts, and cost optimization on deployed resources.
 
 ---
 

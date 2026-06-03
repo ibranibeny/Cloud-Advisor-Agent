@@ -45,6 +45,7 @@ From zero to your first answer in four steps:
 | **Well-Architected Reviews** | WAF pillar assessments with live Azure context |
 | **Reference Architectures** | Mermaid diagrams for recommended topologies |
 | **Enterprise Infra Planning + IaC** | Architect end-to-end Azure infrastructure and generate Bicep or Terraform via the bundled Microsoft [`azure-enterprise-infra-planner`](skills/azure-enterprise-infra-planner/SKILL.md) skill |
+| **Cost Management (live billing)** | Query actual spend, forecast future costs, and find savings on deployed resources via the bundled Microsoft [`azure-cost`](skills/azure-cost/SKILL.md) skill |
 
 ## Bundled Skills
 
@@ -52,8 +53,9 @@ From zero to your first answer in four steps:
 |-------|--------|---------|
 | **microsoft-cloud-advisor** | This repo | Advisory, cost calculators, multi-cloud comparison, WAF reviews, presentations |
 | **azure-enterprise-infra-planner** | [microsoft/azure-skills](https://github.com/microsoft/azure-skills/tree/main/skills/azure-enterprise-infra-planner) (MIT) | Architect/provision enterprise infrastructure and generate deployable Bicep or Terraform via a 7-phase workflow |
+| **azure-cost** | [microsoft/azure-skills](https://github.com/microsoft/azure-skills/tree/main/skills/azure-cost) (MIT) | Query historical Azure spend, forecast future costs, and optimize/reduce waste on deployed resources via the Cost Management API |
 
-The agent loads `microsoft-cloud-advisor` for advisory/costing/comparison and escalates to `azure-enterprise-infra-planner` when the user wants to generate deployable IaC or a provisioning plan.
+The agent loads `microsoft-cloud-advisor` for advisory/costing/comparison, escalates to `azure-enterprise-infra-planner` to generate deployable IaC, and uses `azure-cost` for live billing data, forecasts, and cost optimization on already-deployed resources.
 
 
 ## Prerequisites
@@ -192,9 +194,12 @@ microsoft-cloud-advisor/
 │   ├── skills/
 │   │   ├── microsoft-cloud-advisor/
 │   │   │   └── SKILL.md              # Skill procedure (canonical)
-│   │   └── azure-enterprise-infra-planner/  # Microsoft skill (MIT), vendored
+│   │   ├── azure-enterprise-infra-planner/  # Microsoft skill (MIT), vendored
+│   │   │   ├── SKILL.md
+│   │   │   └── references/           # workflow, phases, constraints, resources, IaC
+│   │   └── azure-cost/               # Microsoft skill (MIT), vendored
 │   │       ├── SKILL.md
-│   │       └── references/           # workflow, phases, constraints, resources, IaC
+│   │       └── cost-query/ cost-forecast/ cost-optimization/
 │   └── copilot-instructions.md       # Copilot workspace instructions
 ├── .vscode/
 │   ├── mcp.json                       # MCP server configuration
@@ -202,9 +207,12 @@ microsoft-cloud-advisor/
 ├── skills/
 │   ├── microsoft-cloud-advisor/
 │   │   └── SKILL.md                   # Skill definition (synced copy)
-│   └── azure-enterprise-infra-planner/  # Microsoft skill (MIT), synced copy
+│   ├── azure-enterprise-infra-planner/  # Microsoft skill (MIT), synced copy
+│   │   ├── SKILL.md
+│   │   └── references/
+│   └── azure-cost/                   # Microsoft skill (MIT), synced copy
 │       ├── SKILL.md
-│       └── references/
+│       └── cost-query/ cost-forecast/ cost-optimization/
 ├── templates/
 │   ├── ppt-slide-templates.md         # PPT markdown format reference
 │   └── cost-calculator-template.md    # Excel calculator structure guide

@@ -678,6 +678,13 @@ Load the `azure-enterprise-infra-planner` skill (Microsoft, MIT) when the user w
 
 Routing: use `microsoft-cloud-advisor` for advisory, costing, comparison, and presentation outputs; escalate to `azure-enterprise-infra-planner` when the user asks to actually generate deployable IaC or a provisioning plan. Both skills keep hub-and-spoke as the mandatory default topology.
 
+Load the `azure-cost` skill (Microsoft, MIT) when the user wants to analyze **actual billed Azure spending** on an existing/deployed environment — not estimate prices for a proposed design. Use it for:
+- Querying historical costs and cost breakdowns (by service, resource, resource group, location, or tag) via the Cost Management Query API
+- Forecasting future spend / projecting end-of-month costs via the Forecast API
+- Cost optimization: finding orphaned/unused resources, rightsizing VMs, Redis/AKS cost analysis, anomaly and budget-alert investigation
+
+Cost routing: use `azure-cost` for **live billing data, forecasts, and optimization of already-deployed resources** (Cost Management + AKS cost add-on + Azure Quick Review); use `microsoft-cloud-advisor` (with `azure/pricing`) to **estimate prices for new/proposed designs** and build Excel cost calculators. When a request needs both (e.g., "what am I spending today and how do I cut it"), run `azure-cost` first, then bring the optimization output into a `microsoft-cloud-advisor` recommendation.
+
 ## Tools Usage
 
 | Tool Family | When to Use |
