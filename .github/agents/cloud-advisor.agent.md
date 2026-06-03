@@ -1,6 +1,6 @@
 ---
 description: "Use when: Azure architecture advisory, hub-and-spoke networking, VNet peering best practices, migration planning, AVS Azure VMware Solution analysis, Azure Hybrid Benefit licensing (Windows Server, SQL Server, Arc, RHEL, SUSE), cost optimization, Well-Architected Framework reviews, generating Azure pricing calculators in Excel, processing uploaded documents (Word/PDF/PPT), creating presentation-style markdown, multi-cloud comparison and cross-cloud service mapping (Azure vs/↔ AWS vs/↔ GCP across application stack and infrastructure stack), data platform advisory (Fabric, Synapse, OneLake), or explaining Azure concepts at different technical depth levels (L100-L400). Triggers: Azure architecture, hub-spoke, hub and spoke, VNet peering, spoke, network topology, landing zone, migration, modernization, AVS, VMware, hybrid benefit, AHUB, license optimization, cost calculator, pricing Excel, cloud strategy, Well-Architected, upload document, generate presentation, PPT markdown, L100, L200, L300, L400, vs AWS, vs GCP, compare, multi-cloud, service mapping, equivalent service, map service, translate service, application stack, infrastructure stack, Fabric, lakehouse, OneLake, eventstream, KQL, best practice, price comparison, multiple environments, Virtual WAN, VWAN, network architecture, shared services network."
-tools: [read, search, web, edit, execute, agent, todo, azure/*, microsoft-lea/*, excel-mcp/*, microsoft_mar/*, aws/*, gcp/*, fabric/*]
+tools: [execute/getTerminalOutput, execute/killTerminal, execute/sendToTerminal, execute/runTask, execute/createAndRunTask, execute/runInTerminal, execute/runTests, execute/testFailure, execute/runNotebookCell, read/terminalSelection, read/terminalLastCommand, read/getTaskOutput, read/getNotebookSummary, read/problems, read/readFile, read/viewImage, read/readNotebookCellOutput, agent/runSubagent, edit/createDirectory, edit/createFile, edit/createJupyterNotebook, edit/editFiles, edit/editNotebook, edit/rename, search/codebase, search/fileSearch, search/listDirectory, search/textSearch, search/usages, web/fetch, web/githubRepo, web/githubTextSearch, azure-mcp/search, todo]
 model: "Claude Opus 4.6 (copilot)"
 argument-hint: "Describe your Azure scenario: migration, AVS, hub-spoke networking, hybrid benefit, architecture review, cost calculator, document analysis, presentation generation, or multi-cloud comparison. Specify L-stage (100-400) for depth."
 ---
@@ -636,7 +636,7 @@ What's the primary workload?
 ## Skills Reference
 
 Load the `microsoft-cloud-advisor` skill for detailed procedure steps including:
-- MCP tool usage patterns (Learn docs, Azure context, Excel generation, Fabric, AWS, GCP)
+- MCP tool usage patterns (Learn docs, Azure context, Azure best practices, Excel generation, Fabric, AWS, GCP)
 - Decision trees (migration strategy, data platform selection)
 - Hub-and-spoke network architecture patterns and cost optimization
 - PPT markdown templates
@@ -650,6 +650,7 @@ Load the `microsoft-cloud-advisor` skill for detailed procedure steps including:
 |-------------|-------------|
 | `microsoft-lea/*` | Research official docs, find code samples |
 | `azure/*` | Live pricing, architecture patterns, WAF reviews, compute sizing |
+| `azure/get_azure_bestpractices` | Validate proposal recommendations against authoritative Azure best practices (complements `azure/documentation` for precise, prescriptive guidance) |
 | `excel-mcp/*` | Generate cost calculator workbooks |
 | `microsoft_mar/*` | Convert uploaded documents to markdown |
 | `aws/*` | AWS service catalog, pricing, architecture for comparisons |
