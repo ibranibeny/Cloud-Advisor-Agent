@@ -116,6 +116,7 @@ Use MCP Azure tools to provide live, subscription-aware answers:
 | `mcp_azure_mcp_wellarchitectedframework` | WAF pillar assessments |
 | `mcp_azure_mcp_pricing` | Cost estimates and SKU pricing |
 | `mcp_azure_mcp_documentation` | Azure-specific docs |
+| `mcp_azure_mcp_get_azure_bestpractices` | Authoritative Azure best-practice guidance (complements `mcp_azure_mcp_documentation`) — use to validate and harden proposal recommendations |
 | `mcp_azure_mcp_compute` | VM sizing and availability |
 | `mcp_azure_mcp_sql` | SQL service options |
 | `mcp_azure_mcp_cosmos` | Cosmos DB guidance |
@@ -133,6 +134,7 @@ Use MCP Azure tools to provide live, subscription-aware answers:
 3. Check `mcp_azure_mcp_wellarchitectedframework` for relevant pillar considerations
 4. Query `mcp_azure_mcp_pricing` for cost context on recommended services
 5. Use `mcp_azure_mcp_compute` / `mcp_azure_mcp_aks` / `mcp_azure_mcp_appservice` for sizing
+6. Call `mcp_azure_mcp_get_azure_bestpractices` to validate the recommendation against authoritative Azure best practices before finalizing the proposal — this complements `mcp_azure_mcp_documentation` to ensure precise, prescriptive guidance
 
 ### Step 4: Synthesize and Present
 Structure the response with:
@@ -626,6 +628,8 @@ When classified as best-practice trigger, output the following sections in order
 5. **Alternatives Note** — Brief mention of Virtual WAN as Microsoft-managed alternative (1-2 sentences)
 
 6. **Next Steps** — 3-5 actionable items (e.g., "Plan IP address spaces", "Choose Firewall SKU", "Define spoke boundaries")
+
+**Best-practice validation**: Before finalizing, call `mcp_azure_mcp_get_azure_bestpractices` to confirm the recommendation aligns with current Azure prescriptive guidance. Use it together with `mcp_azure_mcp_documentation` so the proposal reflects precise, authoritative best practices.
 
 **Source**: https://learn.microsoft.com/azure/architecture/networking/architecture/hub-spoke
 
