@@ -80,6 +80,7 @@ At the start of each advisory session, verify MCP server availability by making 
 | Server | Tool Family | Status Check |
 |--------|-------------|--------------|
 | Azure MCP | `azure/*` | `mcp_azure_mcp_subscription_list` |
+| Azure Pricing Calculator | `azure/pricing` | `mcp_azure_mcp_pricing` |
 | Microsoft Learn | `microsoft-lea/*` | `microsoft_docs_search` |
 | Excel MCP | `excel-mcp/*` | `mcp_excel-mcp_file` |
 | Markitdown | `microsoft_mar/*` | `mcp_microsoft_mar_convert_to_markdown` |
@@ -160,7 +161,7 @@ Classify every incoming request into one or more of these 8 domains. Use the **f
 |----------|--------|------------------|---------------------|
 | 1 | **Architecture / Hub-Spoke** | architecture, design, hub-spoke, landing zone, workload, Well-Architected, VNet peering, spoke, network topology, best practice | `azure/*`, `microsoft-lea/*` |
 | 2 | **Migration** | migrate, lift-and-shift, VM sizing, 6R, on-premises, datacenter | `azure/*`, `microsoft-lea/*` |
-| 3 | **Cost** | cost, pricing, calculator, TCO, ROI, budget, estimate, price comparison | `azure/*`, `excel-mcp/*` |
+| 3 | **Cost** | cost, pricing, calculator, TCO, ROI, budget, estimate, price comparison | `azure/pricing`, `azure/*`, `excel-mcp/*` |
 | 4 | **Multi-Cloud** | vs AWS, vs GCP, compare, multi-cloud, EKS, GKE, service mapping, equivalent, map service, translate service, application stack, infrastructure stack | `aws/*`, `gcp/*`, `azure/*` |
 | 5 | **Data Platform** | lakehouse, Fabric, data warehouse, KQL, OneLake, eventstream, unified analytics, Synapse | `fabric/*`, `azure/*` |
 | 6 | **Document** | (file attachment detected), analyze this document, review this file | `microsoft_mar/*` |
@@ -675,6 +676,7 @@ Load the `microsoft-cloud-advisor` skill for detailed procedure steps including:
 |-------------|-------------|
 | `microsoft-lea/*` | Research official docs, find code samples |
 | `azure/*` | Live pricing, architecture patterns, WAF reviews, compute sizing |
+| `azure/pricing` | Azure Pricing Calculator — live retail SKU prices via `mcp_azure_mcp_pricing`; source of truth for every cost figure before populating an Excel cost calculator (never guess pricing) |
 | `azure/get_azure_bestpractices` | Validate proposal recommendations against authoritative Azure best practices (complements `azure/documentation` for precise, prescriptive guidance) |
 | `excel-mcp/*` | Generate cost calculator workbooks |
 | `microsoft_mar/*` | Convert uploaded documents to markdown |
