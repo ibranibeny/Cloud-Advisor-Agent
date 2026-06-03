@@ -110,6 +110,25 @@ Maps services across Azure, AWS, and GCP for both the application and infrastruc
 
 ---
 
+## 9. Enterprise Infrastructure Planning + IaC
+
+Architects enterprise Azure infrastructure end-to-end and generates deployable **Bicep or Terraform** using the bundled Microsoft `azure-enterprise-infra-planner` skill (MIT). It runs a 7-phase workflow — extract insights, research best practices, research resources, generate plan, verify, generate IaC, deploy — with WAF alignment and pairing/constraint checks.
+
+```
+@cloud-advisor Plan a hub-spoke landing zone with firewall and private endpoints, then generate Bicep
+```
+
+---
+
+## Bundled Skills
+
+| Skill | Source | Use For |
+|-------|--------|---------|
+| **microsoft-cloud-advisor** | This repo | Advisory, cost calculators, multi-cloud comparison, WAF reviews, presentations |
+| **azure-enterprise-infra-planner** | [microsoft/azure-skills](https://github.com/microsoft/azure-skills/tree/main/skills/azure-enterprise-infra-planner) (MIT) | Architect/provision enterprise infrastructure and generate deployable Bicep or Terraform |
+
+---
+
 ## MCP Servers Used
 
 | MCP Server | Tools | Purpose |

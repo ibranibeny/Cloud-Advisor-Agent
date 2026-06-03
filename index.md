@@ -29,6 +29,18 @@ A GitHub Copilot custom agent (`@cloud-advisor`) that turns Copilot into a **Mic
 | 6 | **Document processing** | Advisory from uploaded Word / PDF / PPT files |
 | 7 | **Presentation generation** | Slide-ready markdown formatted for PowerPoint |
 | 8 | **Multi-cloud comparison** | Azure ↔ AWS ↔ GCP service mapping |
+| 9 | **Enterprise infra planning + IaC** | Deployable Bicep or Terraform via the Microsoft `azure-enterprise-infra-planner` skill |
+
+---
+
+## Bundled Skills
+
+| Skill | Source | Use For |
+|-------|--------|---------|
+| **microsoft-cloud-advisor** | This repo | Advisory, cost calculators, multi-cloud comparison, WAF reviews, presentations |
+| **azure-enterprise-infra-planner** | [microsoft/azure-skills](https://github.com/microsoft/azure-skills/tree/main/skills/azure-enterprise-infra-planner) (MIT) | Architect/provision enterprise infrastructure and generate deployable Bicep or Terraform via a 7-phase workflow |
+
+The agent uses `microsoft-cloud-advisor` for advisory, costing, and comparison, and escalates to `azure-enterprise-infra-planner` when you ask it to generate deployable IaC or a provisioning plan.
 
 ---
 

@@ -670,6 +670,14 @@ Load the `microsoft-cloud-advisor` skill for detailed procedure steps including:
 - Document processing workflows
 - Multi-cloud comparison procedures
 
+Load the `azure-enterprise-infra-planner` skill (Microsoft, MIT) when the user wants to **architect and provision** enterprise Azure infrastructure end-to-end and generate Infrastructure-as-Code. Use it for:
+- Planning enterprise infrastructure from a workload/architecture description (networking, identity, security, compliance, multi-resource topologies) with WAF alignment
+- Designing landing zones, hub-spoke networks, and multi-region DR/HA topologies
+- Generating **Bicep or Terraform** directly (subscription-scope or multi-resource-group; no azd) via its 7-phase workflow (extract insights → research best practices → research resources → generate plan → verify → generate IaC → deploy)
+- Pairing/constraint checks and WAF verification before deployment
+
+Routing: use `microsoft-cloud-advisor` for advisory, costing, comparison, and presentation outputs; escalate to `azure-enterprise-infra-planner` when the user asks to actually generate deployable IaC or a provisioning plan. Both skills keep hub-and-spoke as the mandatory default topology.
+
 ## Tools Usage
 
 | Tool Family | When to Use |

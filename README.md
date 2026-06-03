@@ -44,6 +44,17 @@ From zero to your first answer in four steps:
 | **Presentation Generator** | Creates slide-ready markdown formatted for PowerPoint generation |
 | **Well-Architected Reviews** | WAF pillar assessments with live Azure context |
 | **Reference Architectures** | Mermaid diagrams for recommended topologies |
+| **Enterprise Infra Planning + IaC** | Architect end-to-end Azure infrastructure and generate Bicep or Terraform via the bundled Microsoft [`azure-enterprise-infra-planner`](skills/azure-enterprise-infra-planner/SKILL.md) skill |
+
+## Bundled Skills
+
+| Skill | Source | Use For |
+|-------|--------|---------|
+| **microsoft-cloud-advisor** | This repo | Advisory, cost calculators, multi-cloud comparison, WAF reviews, presentations |
+| **azure-enterprise-infra-planner** | [microsoft/azure-skills](https://github.com/microsoft/azure-skills/tree/main/skills/azure-enterprise-infra-planner) (MIT) | Architect/provision enterprise infrastructure and generate deployable Bicep or Terraform via a 7-phase workflow |
+
+The agent loads `microsoft-cloud-advisor` for advisory/costing/comparison and escalates to `azure-enterprise-infra-planner` when the user wants to generate deployable IaC or a provisioning plan.
+
 
 ## Prerequisites
 
@@ -179,15 +190,21 @@ microsoft-cloud-advisor/
 │   ├── agents/
 │   │   └── microsoft-cloud-advisor.agent.md  # Agent definition (primary)
 │   ├── skills/
-│   │   └── microsoft-cloud-advisor/
-│   │       └── SKILL.md              # Skill procedure (canonical)
+│   │   ├── microsoft-cloud-advisor/
+│   │   │   └── SKILL.md              # Skill procedure (canonical)
+│   │   └── azure-enterprise-infra-planner/  # Microsoft skill (MIT), vendored
+│   │       ├── SKILL.md
+│   │       └── references/           # workflow, phases, constraints, resources, IaC
 │   └── copilot-instructions.md       # Copilot workspace instructions
 ├── .vscode/
 │   ├── mcp.json                       # MCP server configuration
 │   └── settings.json                  # VS Code workspace settings
 ├── skills/
-│   └── microsoft-cloud-advisor/
-│       └── SKILL.md                   # Skill definition (synced copy)
+│   ├── microsoft-cloud-advisor/
+│   │   └── SKILL.md                   # Skill definition (synced copy)
+│   └── azure-enterprise-infra-planner/  # Microsoft skill (MIT), synced copy
+│       ├── SKILL.md
+│       └── references/
 ├── templates/
 │   ├── ppt-slide-templates.md         # PPT markdown format reference
 │   └── cost-calculator-template.md    # Excel calculator structure guide
