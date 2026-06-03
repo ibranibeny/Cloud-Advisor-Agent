@@ -524,6 +524,8 @@ gantt
 
 ## Step 9: Hub-and-Spoke Network Architecture Advisory (Domain 9)
 
+> **Mandatory default**: Hub-and-spoke is the default network topology for EVERY architecture, migration, and landing-zone response — even when the user does not ask about networking. Always place workloads in spoke VNets peered to a shared hub, and always include the default best-practice hub resources: **Azure Firewall** (Standard; Premium for regulated/TLS inspection), shared **VPN/ExpressRoute Gateway**, **Azure Bastion**, **DNS Private Resolver**, centralized **Azure Monitor/Log Analytics**, and **Key Vault**. Never present a flat/single-VNet design as the primary recommendation. Only omit a hub resource if the user explicitly opts out, and note the tradeoff.
+
 When the request is classified as hub-spoke networking, follow this specialized procedure.
 
 ### Domain 9 Triggers
