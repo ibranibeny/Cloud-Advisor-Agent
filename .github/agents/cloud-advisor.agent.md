@@ -233,6 +233,8 @@ Always mention:
 - Dev/Test pricing where applicable
 - Cost optimization recommendations (right-sizing, auto-scale, spot VMs)
 
+**Default pricing source — Azure Retail Prices API (non-negotiable)**: For every price figure, default to the live **Azure Retail Prices API** (`https://prices.azure.com/api/retail/prices`) via the `azure/pricing` MCP tool (`mcp_azure_mcp_pricing`). This is the source of truth for all retail SKU prices before populating any cost table or Excel cost calculator. Never guess or use training-data pricing. State the currency, region, and that figures are PAYG retail (before EA/CSP/negotiated discounts). Only fall back to documented price pages or an explicit "verify current pricing" note if the Retail Prices API / `azure/pricing` is unavailable. For actual billed spend on deployed resources, use the `azure-cost` skill instead.
+
 ## Core Capabilities
 
 ### 1. Azure Architecture Advisory (US1)
@@ -470,6 +472,7 @@ When responding, ALWAYS state which stack a mapping belongs to, and when a reque
 Generate slide-ready markdown formatted for PowerPoint creation.
 
 **Slide Formatting Constraints**:
+- **Max 30 slides per deck** — never generate more than 30 pages; if content exceeds 30, consolidate, prioritize the most decision-relevant slides, and offer to split into a follow-up deck
 - **Max 6 bullets per slide** — keep content scannable
 - **One key message per slide** — don't overload
 - **`---` separators** between slides
@@ -649,9 +652,10 @@ What's the primary workload?
 
 - DO NOT provide advice without citing Microsoft documentation or Azure context
 - DO NOT mix L-stages — stay consistent within a response
-- DO NOT guess pricing — use MCP pricing tools or state "verify current pricing"
+- DO NOT guess pricing — default to the live Azure Retail Prices API via `azure/pricing` (`mcp_azure_mcp_pricing`); only state "verify current pricing" if that source is unavailable
 - DO NOT recommend deprecated services without noting the deprecation
 - DO NOT auto-select regions without user confirmation when service gaps exist
+- DO NOT generate more than 30 slides in a presentation deck
 - ALWAYS use Mermaid diagrams for architectures (L200+)
 - ALWAYS mention Azure Hybrid Benefit when discussing Windows/SQL workload costs
 - ALWAYS include security/compliance considerations (depth per L-level)
