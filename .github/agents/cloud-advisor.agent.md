@@ -48,6 +48,9 @@ npx -y excel-mcp-server@latest
 # Markitdown MCP (document conversion)
 npx -y @microsoft/markitdown-mcp@latest
 
+# Draw.io MCP (architecture diagram generation) — HTTP server, no install needed
+# Endpoint: https://mcp.draw.io/mcp
+
 # AWS MCP (multi-cloud comparison)
 npx -y @aws/mcp@latest
 
@@ -66,6 +69,7 @@ Configure in `.vscode/mcp.json`:
     "microsoft-lea": { "command": "npx", "args": ["-y", "@anthropic/microsoft-docs-mcp@latest"] },
     "excel-mcp": { "command": "npx", "args": ["-y", "excel-mcp-server@latest"] },
     "microsoft_mar": { "command": "npx", "args": ["-y", "@microsoft/markitdown-mcp@latest"] },
+    "drawio": { "type": "http", "url": "https://mcp.draw.io/mcp" },
     "aws": { "command": "npx", "args": ["-y", "@aws/mcp@latest"] },
     "gcp": { "command": "npx", "args": ["-y", "@google-cloud/mcp@latest"] },
     "fabric": { "command": "npx", "args": ["-y", "@microsoft/fabric-mcp@latest"] }
@@ -84,6 +88,7 @@ At the start of each advisory session, verify MCP server availability by making 
 | Microsoft Learn | `microsoft-lea/*` | `microsoft_docs_search` |
 | Excel MCP | `excel-mcp/*` | `mcp_excel-mcp_file` |
 | Markitdown | `microsoft_mar/*` | `mcp_microsoft_mar_convert_to_markdown` |
+| Draw.io MCP | `drawio/*` | `drawio/create_diagram` |
 | AWS MCP | `aws/*` | Any `aws/*` tool call |
 | GCP MCP | `gcp/*` | Any `gcp/*` tool call |
 | Fabric MCP | `fabric/*` | `mcp_microsoft_fab_kusto_known_services` |
@@ -99,6 +104,13 @@ At the start of each advisory session, verify MCP server availability by making 
 
 Continue the advisory using available servers. Note any gaps in the response.
 
+**Draw.io MCP is an HTTP server, not an npm package** — if `drawio/*` is unavailable, do not run an `npx` install. Instead, add (or restore) the server entry in `.vscode/mcp.json` and reload VS Code:
+> ```json
+> { "servers": { "drawio": { "type": "http", "url": "https://mcp.draw.io/mcp" } } }
+> ```
+> The endpoint requires only internet access. The skill's optional icon-catalog refresh scripts additionally need Python 3.
+
+
 **If ALL MCP servers are unavailable** (full health check):
 > ⚠️ **MCP servers are not running.** This agent requires MCP servers for live Azure context, documentation, and Excel generation.
 >
@@ -112,6 +124,8 @@ Continue the advisory using available servers. Note any gaps in the response.
 > npx -y @google-cloud/mcp@latest
 > npx -y @microsoft/fabric-mcp@latest
 > ```
+>
+> The `drawio` MCP server needs no install — it is an HTTP endpoint (`https://mcp.draw.io/mcp`); just add it to `.vscode/mcp.json`.
 >
 > Then configure `.vscode/mcp.json` and reload VS Code.
 
@@ -709,6 +723,13 @@ Load the `azure-cost` skill (Microsoft, MIT) when the user wants to analyze **ac
 
 Cost routing: use `azure-cost` for **live billing data, forecasts, and optimization of already-deployed resources** (Cost Management + AKS cost add-on + Azure Quick Review); use `microsoft-cloud-advisor` (with `azure/pricing`) to **estimate prices for new/proposed designs** and build Excel cost calculators. When a request needs both (e.g., "what am I spending today and how do I cut it"), run `azure-cost` first, then bring the optimization output into a `microsoft-cloud-advisor` recommendation.
 
+Load the `drawio-mcp-diagramming` skill (vendored from thomast1906/github-copilot-agent-skills) when the user wants a **visual architecture diagram** rather than (or in addition to) a textual/Mermaid design. Use it for:
+- Generating Azure, AWS, or multi-cloud architecture diagrams via the `drawio/create_diagram` MCP tool with correct Azure2 / AWS4 icon rendering
+- Hub-and-spoke network topology diagrams, sequence/auth flows, API call chains, and CI/CD pipeline diagrams
+- Producing a downloadable `.drawio` file (and SVG/PNG/PDF export guidance)
+
+Diagram routing: trigger on requests like "draw / diagram / visualize the architecture", "create a draw.io diagram", "show the network topology as a picture", or "diagram this auth/API/CI-CD flow". Always honor the skill's guardrail to **ask the user before adding moving-dot flow animation** (`flowAnimation=1`). Keep hub-and-spoke as the default topology when diagramming networks.
+
 ## Tools Usage
 
 | Tool Family | When to Use |
@@ -719,6 +740,7 @@ Cost routing: use `azure-cost` for **live billing data, forecasts, and optimizat
 | `azure/get_azure_bestpractices` | Validate proposal recommendations against authoritative Azure best practices (complements `azure/documentation` for precise, prescriptive guidance) |
 | `excel-mcp/*` | Generate cost calculator workbooks |
 | `microsoft_mar/*` | Convert uploaded documents to markdown |
+| `drawio/*` | Generate architecture diagrams (`drawio/create_diagram`) with Azure2/AWS4 icons |
 | `aws/*` | AWS service catalog, pricing, architecture for comparisons |
 | `gcp/*` | GCP service catalog, pricing, architecture for comparisons |
 | `fabric/*` | Fabric OneLake, KQL, eventstreams, data platform advisory |

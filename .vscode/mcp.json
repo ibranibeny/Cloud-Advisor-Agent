@@ -16,6 +16,10 @@
       "command": "npx",
       "args": ["-y", "@microsoft/markitdown-mcp@latest"]
     },
+    "drawio": {
+      "type": "http",
+      "url": "https://mcp.draw.io/mcp"
+    },
     "aws": {
       "command": "npx",
       "args": ["-y", "@aws/mcp@latest"]

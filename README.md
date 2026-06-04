@@ -44,6 +44,7 @@ From zero to your first answer in four steps:
 | **Presentation Generator** | Creates slide-ready markdown formatted for PowerPoint generation |
 | **Well-Architected Reviews** | WAF pillar assessments with live Azure context |
 | **Reference Architectures** | Mermaid diagrams for recommended topologies |
+| **Draw.io Diagrams** | Generates editable `.drawio` architecture diagrams with correct Azure/AWS icons via the bundled [`drawio-mcp-diagramming`](skills/drawio-mcp-diagramming/SKILL.md) skill |
 | **Enterprise Infra Planning + IaC** | Architect end-to-end Azure infrastructure and generate Bicep or Terraform via the bundled Microsoft [`azure-enterprise-infra-planner`](skills/azure-enterprise-infra-planner/SKILL.md) skill |
 | **Cost Management (live billing)** | Query actual spend, forecast future costs, and find savings on deployed resources via the bundled Microsoft [`azure-cost`](skills/azure-cost/SKILL.md) skill |
 
@@ -54,6 +55,7 @@ From zero to your first answer in four steps:
 | **microsoft-cloud-advisor** | This repo | Advisory, cost calculators, multi-cloud comparison, WAF reviews, presentations |
 | **azure-enterprise-infra-planner** | [microsoft/azure-skills](https://github.com/microsoft/azure-skills/tree/main/skills/azure-enterprise-infra-planner) (MIT) | Architect/provision enterprise infrastructure and generate deployable Bicep or Terraform via a 7-phase workflow |
 | **azure-cost** | [microsoft/azure-skills](https://github.com/microsoft/azure-skills/tree/main/skills/azure-cost) (MIT) | Query historical Azure spend, forecast future costs, and optimize/reduce waste on deployed resources via the Cost Management API |
+| **drawio-mcp-diagramming** | [thomast1906/github-copilot-agent-skills](https://github.com/thomast1906/github-copilot-agent-skills/tree/main/.github/skills/drawio-mcp-diagramming) | Create Azure/AWS/multi-cloud architecture diagrams via the Draw.io MCP server (`drawio/create_diagram`) with correct icon rendering |
 
 The agent loads `microsoft-cloud-advisor` for advisory/costing/comparison, escalates to `azure-enterprise-infra-planner` to generate deployable IaC, and uses `azure-cost` for live billing data, forecasts, and cost optimization on already-deployed resources.
 
@@ -141,7 +143,8 @@ The agent also works in the [GitHub Copilot CLI](https://docs.github.com/en/copi
        "azure": { "command": "npx", "args": ["-y", "@azure/mcp@latest"] },
        "microsoft-lea": { "command": "npx", "args": ["-y", "@anthropic/microsoft-docs-mcp@latest"] },
        "excel-mcp": { "command": "npx", "args": ["-y", "excel-mcp-server@latest"] },
-       "microsoft_mar": { "command": "npx", "args": ["-y", "@microsoft/markitdown-mcp@latest"] }
+       "microsoft_mar": { "command": "npx", "args": ["-y", "@microsoft/markitdown-mcp@latest"] },
+       "drawio": { "type": "http", "url": "https://mcp.draw.io/mcp" }
      }
    }
    ```
@@ -193,6 +196,7 @@ This skill leverages these MCP tool families:
 | **Microsoft Learn MCP** | `mcp_microsoft-lea_*` | Official documentation search & fetch |
 | **Excel MCP** | `mcp_excel-mcp_*` | Cost calculator workbook generation |
 | **Markitdown MCP** | `mcp_microsoft_mar_convert_to_markdown` | Document conversion (Word/PDF/PPT → MD) |
+| **Draw.io MCP** | `drawio/create_diagram` | Architecture diagram generation (Azure2/AWS4 icons) — HTTP server, no install |
 
 ### Configuring MCP Servers
 
@@ -204,7 +208,8 @@ Add to your workspace `.vscode/mcp.json`:
     "azure": { "command": "npx", "args": ["-y", "@azure/mcp@latest"] },
     "microsoft-lea": { "command": "npx", "args": ["-y", "@anthropic/microsoft-docs-mcp@latest"] },
     "excel-mcp": { "command": "npx", "args": ["-y", "excel-mcp-server@latest"] },
-    "microsoft_mar": { "command": "npx", "args": ["-y", "@microsoft/markitdown-mcp@latest"] }
+    "microsoft_mar": { "command": "npx", "args": ["-y", "@microsoft/markitdown-mcp@latest"] },
+    "drawio": { "type": "http", "url": "https://mcp.draw.io/mcp" }
   }
 }
 ```
@@ -226,16 +231,20 @@ microsoft-cloud-advisor/
 ├── LICENSE                            # MIT License
 ├── .github/
 │   ├── agents/
-│   │   └── microsoft-cloud-advisor.agent.md  # Agent definition (primary)
+│   │   └── cloud-advisor.agent.md            # Agent definition (primary)
 │   ├── skills/
 │   │   ├── microsoft-cloud-advisor/
 │   │   │   └── SKILL.md              # Skill procedure (canonical)
 │   │   ├── azure-enterprise-infra-planner/  # Microsoft skill (MIT), vendored
 │   │   │   ├── SKILL.md
 │   │   │   └── references/           # workflow, phases, constraints, resources, IaC
-│   │   └── azure-cost/               # Microsoft skill (MIT), vendored
+│   │   ├── azure-cost/               # Microsoft skill (MIT), vendored
+│   │   │   ├── SKILL.md
+│   │   │   └── cost-query/ cost-forecast/ cost-optimization/
+│   │   └── drawio-mcp-diagramming/   # Draw.io skill (Thomas Thornton), vendored
 │   │       ├── SKILL.md
-│   │       └── cost-query/ cost-forecast/ cost-optimization/
+│   │       ├── references/           # icon catalogs, topology & layout patterns
+│   │       └── scripts/              # icon-catalog refresh (Python 3)
 │   └── copilot-instructions.md       # Copilot workspace instructions
 ├── .vscode/
 │   ├── mcp.json                       # MCP server configuration
@@ -246,9 +255,13 @@ microsoft-cloud-advisor/
 │   ├── azure-enterprise-infra-planner/  # Microsoft skill (MIT), synced copy
 │   │   ├── SKILL.md
 │   │   └── references/
-│   └── azure-cost/                   # Microsoft skill (MIT), synced copy
+│   ├── azure-cost/                   # Microsoft skill (MIT), synced copy
+│   │   ├── SKILL.md
+│   │   └── cost-query/ cost-forecast/ cost-optimization/
+│   └── drawio-mcp-diagramming/       # Draw.io skill (Thomas Thornton), synced copy
 │       ├── SKILL.md
-│       └── cost-query/ cost-forecast/ cost-optimization/
+│       ├── references/
+│       └── scripts/
 ├── templates/
 │   ├── ppt-slide-templates.md         # PPT markdown format reference
 │   └── cost-calculator-template.md    # Excel calculator structure guide
