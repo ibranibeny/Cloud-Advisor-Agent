@@ -116,9 +116,45 @@ cp -r skills/microsoft-cloud-advisor <your-repo>/.github/skills/microsoft-cloud-
 
 ### Option 3: Manual
 
-1. Copy `.github/agents/microsoft-cloud-advisor.agent.md` to your repo's `.github/agents/` folder
+1. Copy `.github/agents/cloud-advisor.agent.md` to your repo's `.github/agents/` folder
 2. Copy `.vscode/mcp.json` to your repo's `.vscode/` folder
 3. Optionally copy `skills/microsoft-cloud-advisor/SKILL.md` to `.github/skills/microsoft-cloud-advisor/`
+
+### Option 4: GitHub Copilot CLI
+
+The agent also works in the [GitHub Copilot CLI](https://docs.github.com/en/copilot/concepts/agents/about-copilot-cli) (`copilot`), which reads custom agents from `.github/agents/` in the current directory.
+
+1. **Install the CLI** (one-time):
+   ```bash
+   npm install -g @github/copilot
+   ```
+
+2. **Scaffold the agent + skill files** into your project root (drops `.github/agents/` and the skills):
+   ```bash
+   npx degit ibranibeny/Cloud-Advisor-Agent
+   ```
+
+3. **Register the MCP servers** so the agent's tools work. Add them to `~/.copilot/mcp-config.json` (global) or run the `/mcp add` command inside the CLI:
+   ```json
+   {
+     "mcpServers": {
+       "azure": { "command": "npx", "args": ["-y", "@azure/mcp@latest"] },
+       "microsoft-lea": { "command": "npx", "args": ["-y", "@anthropic/microsoft-docs-mcp@latest"] },
+       "excel-mcp": { "command": "npx", "args": ["-y", "excel-mcp-server@latest"] },
+       "microsoft_mar": { "command": "npx", "args": ["-y", "@microsoft/markitdown-mcp@latest"] }
+     }
+   }
+   ```
+
+4. **Start the CLI from your project root and select the agent:**
+   ```bash
+   copilot
+   # then inside the session:
+   /agent cloud-advisor
+   Design a hub-spoke network for my Azure landing zone
+   ```
+
+   > The CLI must be launched from the folder that contains `.github/agents/cloud-advisor.agent.md` for the agent to be discovered. Verify available MCP tools with `/mcp` inside the session.
 
 ## Usage
 
