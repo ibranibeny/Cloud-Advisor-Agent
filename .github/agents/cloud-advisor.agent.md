@@ -629,6 +629,10 @@ Use Fabric MCP to query and advise on data platform architecture.
 - **Real-Time Analytics**: Eventstreams → KQL Database → Power BI
 - **Hybrid with Synapse**: Fabric for unified analytics + dedicated Synapse pools for heavy ETL
 
+**Fabric Cost**: Source Fabric capacity pricing from the Azure Retail Prices API via `azure/pricing` (`mcp_azure_mcp_pricing`) — `serviceName eq 'Microsoft Fabric'` (serviceFamily `Data`) returns both **Consumption** (per-CU-hour meters across Data Warehouse, Spark, Power BI, Eventhouse, OneLake, Data Movement, Copilot/AI, etc.) and **Reservation** (Fabric Capacity, 1-Year / 3-Year) pricing. No separate Fabric pricing source is needed for cost calculators.
+
+**Hands-on Fabric operations**: For end-to-end Fabric authoring/consumption/operations/migration via Copilot CLI, route to the `skills-for-fabric` collection (see Skills Reference). For live in-agent Fabric tool calls, use the `fabric/*` MCP tools above.
+
 **Data Platform Decision Tree**:
 ```
 What's the primary workload?
@@ -729,6 +733,16 @@ Load the `drawio-mcp-diagramming` skill (vendored from thomast1906/github-copilo
 - Producing a downloadable `.drawio` file (and SVG/PNG/PDF export guidance)
 
 Diagram routing: trigger on requests like "draw / diagram / visualize the architecture", "create a draw.io diagram", "show the network topology as a picture", or "diagram this auth/API/CI-CD flow". Always honor the skill's guardrail to **ask the user before adding moving-dot flow animation** (`flowAnimation=1`). Keep hub-and-spoke as the default topology when diagramming networks.
+
+Load the `skills-for-fabric` reference (Microsoft, MIT — [microsoft/skills-for-fabric](https://github.com/microsoft/skills-for-fabric)) when the user wants to **operate Microsoft Fabric hands-on** (author, query, run, diagnose, or migrate Fabric workloads) via Copilot CLI / VS Code, rather than just get architecture/cost advice. It is an installable plugin collection of 24 interdependent skills (shared `common/` core) — referenced, not vendored. Use it for:
+- Authoring: Warehouses, Lakehouses, Spark notebooks, T-SQL/KQL, Dataflows Gen2, Eventstreams, Eventhouses, semantic models, activators
+- Consumption: read-only query/exploration across all Fabric workloads + catalog search
+- Operations: performance/health diagnostics, warehouse query insights, slow-query investigation
+- Migration: Databricks → Fabric, Synapse → Fabric, HDInsight → Fabric, end-to-end medallion (Bronze → Silver → Gold)
+
+Install via Copilot CLI plugin marketplace: `/plugin marketplace add microsoft/skills-for-fabric`, then `/plugin install fabric-skills@fabric-collection` (full) or a focused bundle (`fabric-authoring`, `fabric-consumption`, `fabric-operations`). Auth with `az login` + `az account get-access-token --resource https://api.fabric.microsoft.com`.
+
+Fabric routing: use the **`fabric` MCP server** (`fabric/*`) for live in-agent Fabric tool calls (KQL, OneLake, eventstreams) within Data Platform Advisory; escalate to the **`skills-for-fabric`** collection when the user wants the broader end-to-end Fabric authoring/consumption/operations/migration workflows via Copilot CLI. Source **Fabric cost** from the Azure Retail Prices API via `azure/pricing` — `serviceName eq 'Microsoft Fabric'` returns both Consumption (per-CU-hour) and Reservation (1-Year/3-Year capacity) meters, so no separate Fabric pricing source is needed for cost calculators.
 
 ## Tools Usage
 

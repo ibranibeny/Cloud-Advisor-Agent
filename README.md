@@ -47,6 +47,7 @@ From zero to your first answer in four steps:
 | **Draw.io Diagrams** | Generates editable `.drawio` architecture diagrams with correct Azure/AWS icons via the bundled [`drawio-mcp-diagramming`](skills/drawio-mcp-diagramming/SKILL.md) skill |
 | **Enterprise Infra Planning + IaC** | Architect end-to-end Azure infrastructure and generate Bicep or Terraform via the bundled Microsoft [`azure-enterprise-infra-planner`](skills/azure-enterprise-infra-planner/SKILL.md) skill |
 | **Cost Management (live billing)** | Query actual spend, forecast future costs, and find savings on deployed resources via the bundled Microsoft [`azure-cost`](skills/azure-cost/SKILL.md) skill |
+| **Fabric Operations** | Author, query, operate, and migrate Microsoft Fabric workloads via Copilot CLI through the referenced Microsoft [`skills-for-fabric`](skills/skills-for-fabric/SKILL.md) collection |
 
 ## Bundled Skills
 
@@ -56,8 +57,9 @@ From zero to your first answer in four steps:
 | **azure-enterprise-infra-planner** | [microsoft/azure-skills](https://github.com/microsoft/azure-skills/tree/main/skills/azure-enterprise-infra-planner) (MIT) | Architect/provision enterprise infrastructure and generate deployable Bicep or Terraform via a 7-phase workflow |
 | **azure-cost** | [microsoft/azure-skills](https://github.com/microsoft/azure-skills/tree/main/skills/azure-cost) (MIT) | Query historical Azure spend, forecast future costs, and optimize/reduce waste on deployed resources via the Cost Management API |
 | **drawio-mcp-diagramming** | [thomast1906/github-copilot-agent-skills](https://github.com/thomast1906/github-copilot-agent-skills/tree/main/.github/skills/drawio-mcp-diagramming) | Create Azure/AWS/multi-cloud architecture diagrams via the Draw.io MCP server (`drawio/create_diagram`) with correct icon rendering |
+| **skills-for-fabric** | [microsoft/skills-for-fabric](https://github.com/microsoft/skills-for-fabric) (MIT) | Pointer to the installable Fabric plugin collection (24 skills) for hands-on authoring, consumption, operations, and migration of Fabric workloads via Copilot CLI |
 
-The agent loads `microsoft-cloud-advisor` for advisory/costing/comparison, escalates to `azure-enterprise-infra-planner` to generate deployable IaC, and uses `azure-cost` for live billing data, forecasts, and cost optimization on already-deployed resources.
+The agent loads `microsoft-cloud-advisor` for advisory/costing/comparison, escalates to `azure-enterprise-infra-planner` to generate deployable IaC, uses `azure-cost` for live billing data, forecasts, and cost optimization on already-deployed resources, and references `skills-for-fabric` for hands-on Fabric authoring/consumption/operations/migration via Copilot CLI.
 
 
 ## Prerequisites
@@ -241,10 +243,12 @@ microsoft-cloud-advisor/
 │   │   ├── azure-cost/               # Microsoft skill (MIT), vendored
 │   │   │   ├── SKILL.md
 │   │   │   └── cost-query/ cost-forecast/ cost-optimization/
-│   │   └── drawio-mcp-diagramming/   # Draw.io skill (Thomas Thornton), vendored
-│   │       ├── SKILL.md
-│   │       ├── references/           # icon catalogs, topology & layout patterns
-│   │       └── scripts/              # icon-catalog refresh (Python 3)
+│   │   ├── drawio-mcp-diagramming/   # Draw.io skill (Thomas Thornton), vendored
+│   │   │   ├── SKILL.md
+│   │   │   ├── references/           # icon catalogs, topology & layout patterns
+│   │   │   └── scripts/              # icon-catalog refresh (Python 3)
+│   │   └── skills-for-fabric/        # Microsoft Fabric skills (MIT), pointer/reference
+│   │       └── SKILL.md
 │   └── copilot-instructions.md       # Copilot workspace instructions
 ├── .vscode/
 │   ├── mcp.json                       # MCP server configuration
@@ -258,10 +262,12 @@ microsoft-cloud-advisor/
 │   ├── azure-cost/                   # Microsoft skill (MIT), synced copy
 │   │   ├── SKILL.md
 │   │   └── cost-query/ cost-forecast/ cost-optimization/
-│   └── drawio-mcp-diagramming/       # Draw.io skill (Thomas Thornton), synced copy
-│       ├── SKILL.md
-│       ├── references/
-│       └── scripts/
+│   ├── drawio-mcp-diagramming/       # Draw.io skill (Thomas Thornton), synced copy
+│   │   ├── SKILL.md
+│   │   ├── references/
+│   │   └── scripts/
+│   └── skills-for-fabric/            # Microsoft Fabric skills (MIT), pointer/reference
+│       └── SKILL.md
 ├── templates/
 │   ├── ppt-slide-templates.md         # PPT markdown format reference
 │   └── cost-calculator-template.md    # Excel calculator structure guide
