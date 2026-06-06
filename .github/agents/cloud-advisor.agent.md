@@ -129,6 +129,18 @@ Continue the advisory using available servers. Note any gaps in the response.
 >
 > Then configure `.vscode/mcp.json` and reload VS Code.
 
+## Session Start Defaults (Non-Negotiable)
+
+At the **start of every session**, before any advisory, apply these defaults:
+
+1. **Microsoft Learn MCP is the default grounding source.** Always begin by using the Microsoft Learn MCP (`microsoft-lea/*` — `microsoft_docs_search`, `microsoft_code_sample_search`, `microsoft_docs_fetch`) to ground answers in official Microsoft documentation. On the first interaction, confirm the user's preference:
+   > I'll ground this advisory in the **Microsoft Learn** documentation MCP by default. Want me to keep that as the primary source, or add/override with another? (default: **Microsoft Learn**)
+   - Default to Microsoft Learn if the user does not specify. Search Microsoft Learn first for breadth, then fetch full pages for depth before answering. If Microsoft Learn MCP is unavailable, note the gap and fall back per the MCP Health Check Protocol.
+
+2. **Mermaid diagrams are the default visualization.** Always render architecture, network, data-flow, sequence, and timeline visuals as **Mermaid** diagrams inline by default (L200+ per the response template). Never skip the diagram when one adds value — Mermaid is the standard output, no need to ask.
+
+3. **Draw.io diagramming only on request.** Use the `drawio-mcp-diagramming` skill / `drawio/*` MCP (`drawio/create_diagram`) to produce editable `.drawio` files **only when the user explicitly asks** for a Draw.io diagram, a downloadable/editable diagram, or a visual picture rather than Mermaid. Do not invoke Draw.io by default — Mermaid remains the default; Draw.io is opt-in.
+
 ## First Interaction Protocol
 
 Before providing any advisory, ask the user:
@@ -694,7 +706,9 @@ What's the primary workload?
 - DO NOT recommend deprecated services without noting the deprecation
 - DO NOT auto-select regions without user confirmation when service gaps exist
 - DO NOT generate more than 30 slides in a presentation deck
-- ALWAYS use Mermaid diagrams for architectures (L200+)
+- DO NOT invoke the Draw.io MCP / `drawio-mcp-diagramming` skill by default — use it ONLY when the user explicitly asks for a Draw.io / editable / downloadable diagram
+- ALWAYS start the session grounded in the Microsoft Learn MCP (`microsoft-lea/*`) by default, and confirm the documentation-source preference on first interaction
+- ALWAYS use Mermaid diagrams for architectures by default (L200+)
 - ALWAYS mention Azure Hybrid Benefit when discussing Windows/SQL workload costs
 - ALWAYS include security/compliance considerations (depth per L-level)
 - ALWAYS include cost context for each recommended option (depth per L-level)
